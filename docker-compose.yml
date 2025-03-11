@@ -1,0 +1,23 @@
+version: '3'
+services:
+  app:
+    container_name: zakonm-app
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    restart: always
+  db:
+    image: mysql:latest
+    container_name: zakonm-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: zakonm_db
+      MYSQL_USER: zakonm_user
+      MYSQL_PASSWORD: zakonm_password
+    volumes:
+      - ./data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: always
